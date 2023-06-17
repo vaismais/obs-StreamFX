@@ -32,6 +32,7 @@ jobs:
         qt: [ 6 ]
         include:
           - compiler: "MSVC"
+            package_name: "windows"
             CMAKE_SYSTEM_VERSION: "10.0.20348.0"
             CMAKE_GENERATOR: "Visual Studio 17 2022"
             CMAKE_GENERATOR_PLATFORM: "x64"
@@ -137,11 +138,11 @@ jobs:
           -DENABLE_SCRIPTING=OFF
         cmake \
           --build "${{ github.workspace }}/build/obs" \
-          --config RelWithDebInfo \
+          --config Release \
           --target obs-frontend-api
         cmake \
           --install "${{ github.workspace }}/build/obs" \
-          --config RelWithDebInfo \
+          --config Release \
           --component obs_libraries
     - name: "Configure"
       continue-on-error: true
@@ -166,7 +167,7 @@ jobs:
     - name: "Build: Release"
       shell: bash
       env:
-        CMAKE_BUILD_TYPE: "RelWithDebInfo"
+        CMAKE_BUILD_TYPE: "Release"
       run: |
         cmake --build "build/ci" --config ${{ env.CMAKE_BUILD_TYPE }} --target StreamFX
 
